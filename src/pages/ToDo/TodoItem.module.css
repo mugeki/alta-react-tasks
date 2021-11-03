@@ -1,0 +1,30 @@
+.title {
+	width: 20px;
+}
+
+.completed {
+	color: gray;
+	font-style: italic;
+	text-decoration: line-through;
+}
+
+.row {
+	border-bottom: 2px solid rgb(201, 201, 201);
+}
+
+.content {
+	height: 50px;
+	width: 50px;
+	text-align: end;
+}
+
+.button {
+	color: #e44f4f;
+	font-weight: bold;
+	background-color: white;
+	border: none;
+}
+
+.button:hover {
+	color: #c24848;
+}

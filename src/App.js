@@ -1,11 +1,10 @@
 import "./App.css";
-import { mockTodos } from "./mockData";
-import TodoPage from "./pages/ToDo/TodoPage";
+import Home from "./pages/ToDo/Home";
 
 function App() {
 	return (
 		<div className="App">
-			<TodoPage todos={mockTodos} />
+			<Home />
 		</div>
 	);
 }
