@@ -1,17 +1,14 @@
 import styles from "./TodoItem.module.css";
 
-export default function TodoItem({ item, deleteTodo, checkTodo, uncheckTodo }) {
+export default function TodoItem(props) {
+	const { item, deleteTodo, checkTodo } = props;
 	return (
 		<tr className={styles.row}>
 			<td>
 				<input
 					defaultChecked={item.completed ? true : false}
 					type="checkbox"
-					onClick={
-						item.completed
-							? () => uncheckTodo(item.id)
-							: () => checkTodo(item.id)
-					}
+					onClick={() => checkTodo(item.id)}
 				/>
 			</td>
 			<td

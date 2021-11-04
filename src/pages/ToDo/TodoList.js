@@ -2,7 +2,7 @@ import TodoItem from "./TodoItem";
 import styles from "./TodoList.module.css";
 
 export default function TodoList(props) {
-	const { data, deleteTodo, checkTodo, uncheckTodo } = props;
+	const { data, deleteTodo, checkTodo } = props;
 	return (
 		<div className={styles.container}>
 			<table style={{ borderCollapse: "collapse" }}>
@@ -13,7 +13,6 @@ export default function TodoList(props) {
 							item={todo}
 							deleteTodo={deleteTodo}
 							checkTodo={checkTodo}
-							uncheckTodo={uncheckTodo}
 						/>
 					))}
 				</tbody>
