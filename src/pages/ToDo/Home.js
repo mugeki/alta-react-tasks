@@ -33,7 +33,6 @@ export default function Home() {
 	const checkTodo = (id) => {
 		let todos;
 		const todoTarget = state.data.filter((todo) => todo.id === id);
-		console.log(todoTarget[0]);
 		if (todoTarget[0].completed) {
 			todos = state.data.map((todo) => {
 				if (todo.id === id) {
