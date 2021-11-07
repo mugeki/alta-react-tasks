@@ -19,12 +19,17 @@
 }
 
 .button {
-	color: #e44f4f;
-	font-weight: bold;
-	background-color: white;
-	border: none;
+	background-color: #d04444;
+	border-radius: 8px;
+	border: 2px solid #ffffff;
+	color: #ffffff;
+	padding: 5px 10px;
+	transition: 0.2s ease;
 }
 
 .button:hover {
-	color: #c24848;
+	background-color: #ffffff;
+	border: 2px solid #d04444;
+	color: #d04444;
+	transition: 0.2s ease;
 }

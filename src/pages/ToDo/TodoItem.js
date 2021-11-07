@@ -6,13 +6,14 @@ export default function TodoItem(props) {
 		<tr className={styles.row}>
 			<td>
 				<input
+					className="me-4"
 					defaultChecked={item.completed ? true : false}
 					type="checkbox"
 					onClick={() => checkTodo(item.id)}
 				/>
 			</td>
 			<td
-				style={{ width: "290px" }}
+				style={{ width: "260px" }}
 				className={item.completed ? styles.completed : ""}
 			>
 				{item.title}

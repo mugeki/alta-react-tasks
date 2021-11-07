@@ -35,8 +35,8 @@ export default function TodoInput(props) {
 				type="text"
 				placeholder="Add todo..."
 				name="title"
-				className={styles.input}
 				value={state.title}
+				className={styles.input}
 				onChange={onChange}
 			/>
 			<button onClick={handleSubmit} className={styles.button}>

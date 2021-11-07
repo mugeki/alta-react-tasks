@@ -20,11 +20,18 @@
 }
 
 .button {
-	font-weight: bold;
 	background-color: white;
 	border: none;
+	transition: 0.2s ease;
 }
 
 .button:hover {
 	color: #61cf55;
+	transition: 0.2s ease;
+}
+
+.shake-horizontal {
+	-webkit-animation: shake-horizontal 0.8s
+		cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+	animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
 }
