@@ -1,18 +1,25 @@
+import { useSelector, useDispatch } from "react-redux";
+import { checkTodo, deleteTodo } from "../../store/todoSlice";
 import TodoItem from "./TodoItem";
 import styles from "./TodoList.module.css";
 
 export default function TodoList(props) {
-	const { data, deleteTodo, checkTodo } = props;
+	const todos = useSelector((state) => state.todo.todos);
+	const dispatch = useDispatch();
 	return (
 		<div className={styles.container}>
 			<table style={{ borderCollapse: "collapse" }}>
 				<tbody>
-					{data.map((todo) => (
+					{todos.map((todo) => (
 						<TodoItem
 							key={todo.id}
 							item={todo}
-							deleteTodo={deleteTodo}
-							checkTodo={checkTodo}
+							deleteTodo={() => {
+								dispatch(deleteTodo(todo.id));
+							}}
+							checkTodo={() => {
+								dispatch(checkTodo(todo.id));
+							}}
 						/>
 					))}
 				</tbody>

@@ -1,8 +1,13 @@
+import { useDispatch } from "react-redux";
+import { addTodo } from "../../store/todoSlice";
 import { useState } from "react";
+import Toastify from "toastify-js";
 import styles from "./TodoInput.module.css";
+import "toastify-js/src/toastify.css";
 
 export default function TodoInput(props) {
-	const { addTodo } = props;
+	const dispatch = useDispatch();
+
 	const [state, setState] = useState({
 		title: "",
 		completed: false,
@@ -19,13 +24,19 @@ export default function TodoInput(props) {
 				title: state.title,
 				completed: state.completed,
 			};
-			addTodo(newData);
+			dispatch(addTodo(newData));
 			setState({
 				title: "",
 				completed: false,
 			});
 		} else {
-			alert("Todo's title cannot be empty");
+			Toastify({
+				text: "Todo's title cannot be empty",
+				duration: 3000,
+				style: {
+					background: "#d43434",
+				},
+			}).showToast();
 		}
 	};
 

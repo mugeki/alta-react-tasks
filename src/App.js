@@ -1,8 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 import "./App.css";
 import Home from "./pages/ToDo/Home";
 import About from "./pages/About/About";
 import NotFound from "./pages/Error/NotFound";
+import { store, persistor } from "./store/store";
 
 function App() {
 	const aboutAppTitle = "App";
@@ -13,23 +16,29 @@ function App() {
 		"Nulla vitae iaculis libero, at maximus risus. Praesent ex diam, fermentum in malesuada nec, ornare non lorem. Sed mattis varius orci ut vestibulum. Sed tempus ullamcorper nunc nec egestas.";
 	return (
 		<div className="App">
-			<BrowserRouter>
-				<Routes>
-					<Route path="" exact element={<Home />} />
-					<Route path="about" exact element={<About title="Page" />} />
-					<Route
-						path="about/about-app"
-						exact
-						element={<About title={aboutAppTitle} text={aboutAppText} />}
-					/>
-					<Route
-						path="about/about-author"
-						exact
-						element={<About title={aboutAuthorTitle} text={aboutAuthorText} />}
-					/>
-					<Route path="*" element={<NotFound />} />
-				</Routes>
-			</BrowserRouter>
+			<Provider store={store}>
+				<PersistGate Loading={null} persistor={persistor}>
+					<BrowserRouter>
+						<Routes>
+							<Route path="" exact element={<Home />} />
+							<Route path="about" exact element={<About title="Page" />} />
+							<Route
+								path="about/about-app"
+								exact
+								element={<About title={aboutAppTitle} text={aboutAppText} />}
+							/>
+							<Route
+								path="about/about-author"
+								exact
+								element={
+									<About title={aboutAuthorTitle} text={aboutAuthorText} />
+								}
+							/>
+							<Route path="*" element={<NotFound />} />
+						</Routes>
+					</BrowserRouter>
+				</PersistGate>
+			</Provider>
 		</div>
 	);
 }
