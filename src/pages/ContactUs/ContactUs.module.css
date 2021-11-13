@@ -1,0 +1,9 @@
+.sideimage {
+	background-image: url("../../assets/charles-rRWiVQzLm7k-unsplash.jpg");
+	background-size: cover;
+}
+
+.overlay {
+	background: #19345ea6;
+	z-index: 2;
+}

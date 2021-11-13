@@ -1,0 +1,42 @@
+.profileText1 {
+	font-size: 2em !important;
+}
+
+.profileText2 {
+	font-size: 5.3em !important;
+}
+
+.profileText3 {
+	font-size: 2.1em !important;
+}
+
+.content {
+	background-image: url("../../assets/bg-img.png");
+	background-size: cover;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+@media (max-width: 576px) {
+	section {
+		font-size: 0.45em;
+	}
+}
+
+@media (min-width: 576px) {
+	section {
+		font-size: 0.6em;
+	}
+}
+
+@media (min-width: 992px) {
+	section {
+		font-size: 1em;
+	}
+}
+
+@media (min-width: 1200px) {
+	section {
+		font-size: 1.2em;
+	}
+}

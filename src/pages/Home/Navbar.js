@@ -1,14 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import logo from "../assets/img/logo-ALTA.png";
+import { NavLink } from "react-router-dom";
+import logo from "../../assets/logo-ALTA.png";
 
 export default function Navbar() {
 	return (
 		<nav className="navbar navbar-expand-lg navbar-light shadow-sm">
 			<div className="container-fluid px-5">
-				<Link to="/" className="navbar-brand" href="index.html">
+				<NavLink to="/" className="navbar-brand">
 					<img src={logo} alt="logo" className="w-75" />
-				</Link>
+				</NavLink>
 
 				<button
 					className="navbar-toggler"
@@ -23,27 +23,18 @@ export default function Navbar() {
 				</button>
 				<div className="collapse navbar-collapse" id="navbarNavAltMarkup">
 					<div className="navbar-nav ms-auto">
-						<Link
-							to="/"
-							className="nav-link mx-3 active fw-bolder"
-							aria-current="page"
-							href="index.html"
-						>
+						<NavLink to="/" className="nav-link mx-3" replace>
 							HOME
-						</Link>
-						<Link to="/" className="nav-link mx-3" href="index.html">
+						</NavLink>
+						<NavLink to="/about" className="nav-link mx-3" replace>
 							ABOUT
-						</Link>
-						<Link to="/" className="nav-link mx-3" href="index.html">
-							EXPERIENCE
-						</Link>
-						<Link
-							to="/contact_us"
-							className="nav-link mx-3"
-							href="contact_us.html"
-						>
+						</NavLink>
+						<NavLink to="/news" className="nav-link mx-3" replace>
+							NEWS
+						</NavLink>
+						<NavLink to="/contact_us" className="nav-link mx-3" replace>
 							CONTACT
-						</Link>
+						</NavLink>
 					</div>
 				</div>
 			</div>
