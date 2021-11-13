@@ -6,12 +6,12 @@ import styles from "./Home.module.css";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-	const [time, setTime] = useState(moment().format("h:mm:ss"));
+	const [time, setTime] = useState(moment().format("HH:mm:ss"));
 	useEffect(() => {
 		let isMounted = true;
 		setInterval(() => {
 			if (isMounted) {
-				setTime(moment().format("h:mm:ss"));
+				setTime(moment().format("HH:mm:ss"));
 			}
 		}, 1000);
 		return () => {
