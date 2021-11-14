@@ -4,9 +4,8 @@ import NewsItem from "./NewsItem";
 import nextId from "react-id-generator";
 
 const URL =
-	"https://newsapi.org/v2/top-headlines?" +
-	"country=id&" +
-	"apiKey=197aefef4baa483d9d48795acb49dcaa";
+	"https://api.thenewsapi.com/v1" +
+	"/news/top?api_token=zZ9yRPDK4tiBAkdRnLsPVaszpafDprZ6pJVOnbYL&locale=id&language=id";
 
 export default function NewsList() {
 	const [news, setNews] = useState([]);
@@ -19,7 +18,7 @@ export default function NewsList() {
 			let result;
 			try {
 				result = await axios.get(URL, { cancelToken: source.token });
-				setNews(result.data.articles);
+				setNews(result.data.data);
 			} catch (error) {
 				setError(error);
 			}
@@ -33,7 +32,7 @@ export default function NewsList() {
 	return (
 		<div className="container w-50 py-5">
 			{news.map((item) => (
-				<NewsItem key={nextId()} title={item.title} content={item.content} />
+				<NewsItem key={nextId()} title={item.title} content={item.snippet} />
 			))}
 			{news.length === 0 && <h5>{err}</h5>}
 		</div>
