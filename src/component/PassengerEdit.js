@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./Home.css";
 
-function PassengerInput(props) {
+function PassengerEdit(props) {
 	const [state, setState] = useState({
 		nama: "",
 		umur: "",
@@ -25,9 +25,9 @@ function PassengerInput(props) {
 				const newData = {
 					nama: state.nama,
 					umur: state.umur,
-					jenisKelamin: state.jenisKelamin,
+					jenis_kelamin: state.jenisKelamin,
 				};
-				props.tambahPengunjung(newData);
+				props.editPengunjung(props.id, newData);
 				setState({
 					...state,
 					nama: "",
@@ -53,8 +53,13 @@ function PassengerInput(props) {
 			editing: true,
 		});
 	};
-
-	let viewMode = {};
+	let viewMode = {
+		backgroundColor: "white",
+		border: "1px solid black",
+		position: "absolute",
+		padding: "10px",
+		zIndex: "2",
+	};
 	let editMode = {};
 
 	if (state.editing) {
@@ -65,26 +70,30 @@ function PassengerInput(props) {
 
 	return (
 		<div>
-			<div onSubmit={handleSubmit} style={viewMode}>
-				<p>Masukkan Nama Anda</p>
+			<div
+				className="border position-absolute"
+				onSubmit={handleSubmit}
+				style={viewMode}
+			>
+				<p>Masukkan Nama</p>
 				<input
 					type="text"
 					className="input-text"
-					placeholder="Nama anda ..."
+					placeholder="Nama ..."
 					value={state.nama}
 					name="nama"
 					onChange={onChange}
 				/>
-				<p>Masukkan Umur Anda</p>
+				<p>Masukkan Umur</p>
 				<input
 					type="number"
 					className="input-text"
-					placeholder="Umur anda ..."
+					placeholder="Umur ..."
 					value={state.umur}
 					name="umur"
 					onChange={onChange}
 				/>
-				<p>Masukkan Jenis Kelamin Anda</p>
+				<p>Masukkan Jenis Kelamin</p>
 				<select onChange={onChange} name="jenisKelamin">
 					<option value="Pria" selected>
 						Pria
@@ -94,14 +103,14 @@ function PassengerInput(props) {
 				<p></p>
 				<button onClick={handleSubmit}>Submit</button>
 				<button onClick={handleTutupInput} style={{ marginLeft: "10px" }}>
-					Selesai
+					Batal
 				</button>
 			</div>
-			<button className="inputan" onClick={handleBukaInput} style={editMode}>
-				Masukkan Nama Pelanggan
+			<button onClick={handleBukaInput} style={editMode}>
+				Edit
 			</button>
 		</div>
 	);
 }
 
-export default PassengerInput;
+export default PassengerEdit;
