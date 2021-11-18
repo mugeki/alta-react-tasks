@@ -3,122 +3,33 @@ import { v4 as uuidv4 } from "uuid";
 import PassengerInput from "./PassengerInput";
 import ListPassenger from "./ListPassenger";
 import Header from "./Header";
-import { gql, useLazyQuery, useMutation } from "@apollo/client";
+import useDeletePassenger from "../hooks/useDeletePassenger";
+import useGetPassengerByID from "../hooks/useGetPassengerByID";
+import useGetPassengerList from "../hooks/useGetPassengerList";
+import useInsertPassenger from "../hooks/useInsertPassenger";
+import useUpdatePassenger from "../hooks/useUpdatePassenger";
+import useSubscribePassenger from "../hooks/useSubscribePassenger";
 import Loading from "./Loading";
 
-const GetPassengerList = gql`
-	query MyQuery {
-		anggota {
-			id
-			jenis_kelamin
-			nama
-			umur
-		}
-	}
-`;
-
-const GetPassengerByID = gql`
-	query MyQuery($id: String!) {
-		anggota(where: { id: { _eq: $id } }) {
-			id
-			jenis_kelamin
-			nama
-			umur
-		}
-	}
-`;
-
-const InsertPassenger = gql`
-	mutation MyMutation($nama: String!, $umur: Int!, $jenis_kelamin: String!) {
-		insert_anggota(
-			objects: { nama: $nama, umur: $umur, jenis_kelamin: $jenis_kelamin }
-		) {
-			affected_rows
-		}
-	}
-`;
-
-const DeletePassenger = gql`
-	mutation MyMutation($id: String!) {
-		delete_anggota_by_pk(id: $id) {
-			id
-		}
-	}
-`;
-
-const UpdatePassenger = gql`
-	mutation MyMutation(
-		$id: String!
-		$jenis_kelamin: String
-		$nama: String
-		$umur: Int
-	) {
-		update_anggota_by_pk(
-			pk_columns: { id: $id }
-			_set: { jenis_kelamin: $jenis_kelamin, nama: $nama, umur: $umur }
-		) {
-			id
-			jenis_kelamin
-			nama
-			umur
-		}
-	}
-`;
-
 export default function Home() {
-	const [getPassengerList, { data, loading, error }] =
-		useLazyQuery(GetPassengerList);
-
-	const [getPassenger, { loading: loadingSearch, error: errorSearch }] =
-		useLazyQuery(GetPassengerByID, {
-			fetchPolicy: "network-only",
-			onCompleted: (data) => {
-				setPassenger(data.anggota);
-			},
-		});
-
-	const [insertPassenger, { loading: loadingInsert }] = useMutation(
-		InsertPassenger,
-		{
-			refetchQueries: [GetPassengerList],
-			awaitRefetchQueries: true,
-			onCompleted: (data) => {
-				setPassenger(data.anggota);
-			},
-		}
-	);
-
-	const [deletePassenger, { loading: loadingDelete }] = useMutation(
-		DeletePassenger,
-		{
-			refetchQueries: [GetPassengerList],
-			awaitRefetchQueries: true,
-			onCompleted: (data) => {
-				setPassenger(data.anggota);
-			},
-		}
-	);
-
-	const [updatePassenger, { loading: loadingUpdate }] = useMutation(
-		UpdatePassenger,
-		{
-			refetchQueries: [GetPassengerList],
-			awaitRefetchQueries: true,
-			onCompleted: (data) => {
-				setPassenger(data.anggota);
-			},
-		}
-	);
-
 	const [userID, setUserID] = useState("");
 	const [passenger, setPassenger] = useState();
 
+	const { data, loading, error, subscribePassenger } = useGetPassengerList();
+	// console.log("subsfunc: ", subscribePassenger);
+	const { getPassenger, loadingSearch, errorSearch } =
+		useGetPassengerByID(passenger);
+	const { insertPassenger, loadingInsert } = useInsertPassenger(passenger);
+	const { deletePassenger, loadingDelete } = useDeletePassenger(passenger);
+	const { updatePassenger, loadingUpdate } = useUpdatePassenger(passenger);
+	const { dataSubs, loadingSubs, errorSubs } = useSubscribePassenger();
+
 	useEffect(() => {
-		getPassengerList();
-		if (data && typeof passenger === "undefined") {
-			setPassenger(data.anggota);
-		}
-	}, [data, passenger, getPassengerList]);
+		subscribePassenger();
+		// getPassengerList();
+		console.log("dataSubs: ", dataSubs);
+		setPassenger(dataSubs?.anggota);
+	}, [subscribePassenger, dataSubs]);
 
 	if (error || errorSearch) {
 		console.log(error);
@@ -131,7 +42,8 @@ export default function Home() {
 		loadingSearch ||
 		loadingInsert ||
 		loadingDelete ||
-		loadingUpdate
+		loadingUpdate ||
+		loadingSubs
 	) {
 		return <Loading />;
 	}
@@ -174,7 +86,7 @@ export default function Home() {
 	const onGetData = () => {
 		if (userID === "") {
 			setPassenger(() => {
-				getPassengerList();
+				// getPassengerList();
 				return data.anggota;
 			});
 		} else {
