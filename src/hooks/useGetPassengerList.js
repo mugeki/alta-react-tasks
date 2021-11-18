@@ -9,7 +9,6 @@ export default function useGetPassengerList() {
 		subscribeToMore({
 			document: SubscriptionPassenger,
 			updateQuery: (prev, { subscriptionData: { data } }) => {
-				console.log(data);
 				return data;
 			},
 		});

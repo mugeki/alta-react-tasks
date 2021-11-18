@@ -1,4 +1,3 @@
-// import { useState } from "react";
 import { useSubscription } from "@apollo/client";
 import { SubscriptionPassenger } from "../graphql/subscription";
 

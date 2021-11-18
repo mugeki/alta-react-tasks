@@ -16,24 +16,27 @@ export default function Home() {
 	const [passenger, setPassenger] = useState();
 
 	const { data, loading, error, subscribePassenger } = useGetPassengerList();
-	// console.log("subsfunc: ", subscribePassenger);
-	const { getPassenger, loadingSearch, errorSearch } =
-		useGetPassengerByID(passenger);
-	const { insertPassenger, loadingInsert } = useInsertPassenger(passenger);
-	const { deletePassenger, loadingDelete } = useDeletePassenger(passenger);
-	const { updatePassenger, loadingUpdate } = useUpdatePassenger(passenger);
+	const { dataSearch, getPassenger, loadingSearch, errorSearch } =
+		useGetPassengerByID();
+	const { insertPassenger, loadingInsert } = useInsertPassenger();
+	const { deletePassenger, loadingDelete } = useDeletePassenger();
+	const { updatePassenger, loadingUpdate } = useUpdatePassenger();
 	const { dataSubs, loadingSubs, errorSubs } = useSubscribePassenger();
 
 	useEffect(() => {
-		subscribePassenger();
-		// getPassengerList();
-		console.log("dataSubs: ", dataSubs);
-		setPassenger(dataSubs?.anggota);
-	}, [subscribePassenger, dataSubs]);
+		if (!loading && !dataSearch) {
+			subscribePassenger();
+			setPassenger(dataSubs?.anggota);
+		}
+		if (dataSearch && userID !== "") {
+			setPassenger(dataSearch?.anggota);
+		}
+	}, [subscribePassenger, loading, dataSubs, dataSearch, userID]);
 
-	if (error || errorSearch) {
+	if (error || errorSearch || errorSubs) {
 		console.log(error);
 		console.log(errorSearch);
+		console.log(errorSubs);
 		return null;
 	}
 
@@ -70,7 +73,6 @@ export default function Home() {
 
 	const tambahPengunjung = (newUser) => {
 		const newPassenger = {
-			id: uuidv4(),
 			...newUser,
 		};
 		insertPassenger({
@@ -84,18 +86,11 @@ export default function Home() {
 	};
 
 	const onGetData = () => {
-		if (userID === "") {
-			setPassenger(() => {
-				// getPassengerList();
-				return data.anggota;
-			});
-		} else {
-			getPassenger({
-				variables: {
-					id: userID,
-				},
-			});
-		}
+		getPassenger({
+			variables: {
+				id: userID,
+			},
+		});
 	};
 
 	const onChangeID = (e) => {
