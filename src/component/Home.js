@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import PassengerInput from "./PassengerInput";
 import ListPassenger from "./ListPassenger";
 import Header from "./Header";
@@ -24,7 +23,7 @@ export default function Home() {
 	const { dataSubs, loadingSubs, errorSubs } = useSubscribePassenger();
 
 	useEffect(() => {
-		if (!loading && !dataSearch) {
+		if (!loading && !dataSearch && userID === "") {
 			subscribePassenger();
 			setPassenger(dataSubs?.anggota);
 		}
@@ -88,7 +87,7 @@ export default function Home() {
 	const onGetData = () => {
 		getPassenger({
 			variables: {
-				id: userID,
+				id: userID === "" ? 0 : userID,
 			},
 		});
 	};

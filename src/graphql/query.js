@@ -12,7 +12,7 @@ const GetPassengerList = gql`
 `;
 
 const GetPassengerByID = gql`
-	query MyQuery($id: String!) {
+	query MyQuery($id: Int!) {
 		anggota(where: { id: { _eq: $id } }) {
 			id
 			jenis_kelamin

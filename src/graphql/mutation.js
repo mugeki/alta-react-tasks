@@ -11,7 +11,7 @@ const InsertPassenger = gql`
 `;
 
 const DeletePassenger = gql`
-	mutation MyMutation($id: String!) {
+	mutation MyMutation($id: Int!) {
 		delete_anggota_by_pk(id: $id) {
 			id
 		}
@@ -20,7 +20,7 @@ const DeletePassenger = gql`
 
 const UpdatePassenger = gql`
 	mutation MyMutation(
-		$id: String!
+		$id: Int!
 		$jenis_kelamin: String
 		$nama: String
 		$umur: Int
